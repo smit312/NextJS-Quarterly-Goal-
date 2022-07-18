@@ -1,0 +1,9 @@
+1.
+Name : Next.js Crash Course 
+Channel Name : Traversy Media
+Link : https://www.youtube.com/watch?v=mTz0GXj8NN0&ab_channel=TraversyMedia
+Reference : Youtube
+
+commands used : 
+- npx create-next-app next-crash-course
+- npm run dev (for run)
