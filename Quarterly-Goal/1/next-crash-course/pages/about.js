@@ -1,13 +1,10 @@
 import React from "react";
-import Head from "next/head";
+import Meta from "../component/Meta";
 
 const about = () => {
   return (
     <div>
-      <Head>
-        <title>Next App</title>
-        <meta name="keywords" content="web development, programming" />
-      </Head>
+      <Meta title="About" />
       <h1>about</h1>
     </div>
   );
