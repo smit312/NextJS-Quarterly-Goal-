@@ -1,16 +1,15 @@
 import { server } from "../config";
 import ArticleList from "../component/ArticleList";
 export default function Home({ articels }) {
-  console.log(articels);
   return (
     <div>
       <ArticleList articels={articels} />
     </div>
   );
 }
-const serverUrl = window.location.origin;
+// const serverUrl = window.location.origin;
 export const getStaticProps = async () => {
-  const res = await fetch(`${serverUrl}/api/articles`);
+  const res = await fetch(`${server}/api/articles`);
   const articels = await res.json();
   return {
     props: {
