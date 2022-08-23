@@ -30,7 +30,7 @@ function FilteredEventsPage() {
   });
 
   if (!filteredEvents || filteredEvents.length === 0) {
-    return <p>No events found for the chosen filter! </p>;
+    return <p className="center">No events found for the chosen filter! </p>;
   }
 
   return (
