@@ -4,7 +4,6 @@ import EventList from "../../components/events/event-list";
 function FilteredEventsPage() {
   const router = useRouter();
   const filterData = router.query.slug;
-  // console.log(filterData);
   if (!filterData) {
     return <p className="center">Loading...</p>;
   }
