@@ -1,10 +1,32 @@
 import { useRouter } from "next/router";
-import { getFilteredEvents } from "../../dummy-data";
 import EventList from "../../components/events/event-list";
-function FilteredEventsPage() {
+import { getFilteredEvents } from "../../helpers/api-util";
+import useSWR from "swr";
+import { useEffect, useState } from "react";
+
+function FilteredEventsPage(props) {
+  const [loadedevents, setLoadedEvents] = useState();
   const router = useRouter();
   const filterData = router.query.slug;
-  if (!filterData) {
+
+  const { data, error } = useSWR(
+    "https://nextjs-course-5d86c-default-rtdb.firebaseio.com/events.json"
+  );
+
+  useEffect(() => {
+    if (data) {
+      const events = [];
+      for (const key in data) {
+        events.push({
+          id: key,
+          ...data[key],
+        });
+      }
+      setLoadedEvents(events);
+    }
+  }, [data]);
+
+  if (!loadedevents) {
     return <p className="center">Loading...</p>;
   }
   const filteredYear = filterData[0];
@@ -19,14 +41,18 @@ function FilteredEventsPage() {
     numYear > 2030 ||
     numYear < 2021 ||
     numMonth < 1 ||
-    numMonth > 12
+    numMonth > 12 ||
+    error
   ) {
     return <p>Invalid Filter, Please adjust your values!</p>;
   }
 
-  const filteredEvents = getFilteredEvents({
-    year: numYear,
-    month: numMonth,
+  const filteredEvents = loadedevents.filter((event) => {
+    const eventDate = new Date(event.date);
+    return (
+      eventDate.getFullYear() === numYear &&
+      eventDate.getMonth() === numMonth - 1
+    );
   });
 
   if (!filteredEvents || filteredEvents.length === 0) {
@@ -39,5 +65,42 @@ function FilteredEventsPage() {
     </div>
   );
 }
+
+// export async function getServerSideProps(context) {
+//   const { params } = context;
+
+//   const filterData = params.slug;
+
+//   const filteredYear = filterData[0];
+//   const filteredMonth = filterData[1];
+
+//   const numYear = +filteredYear;
+//   const numMonth = +filteredMonth;
+
+//   if (
+//     isNaN(numMonth) ||
+//     isNaN(numMonth) ||
+//     numYear > 2030 ||
+//     numYear < 2021 ||
+//     numMonth < 1 ||
+//     numMonth > 12
+//   ) {
+//     return {
+//       props: { hasError: true },
+//        notFound: true,
+//     };
+//   }
+
+//   const filteredEvents = await getFilteredEvents({
+//     year: numYear,
+//     month: numMonth,
+//   });
+
+//   return {
+//     props: {
+//       events: filteredEvents,
+//     },
+//   };
+// }
 
 export default FilteredEventsPage;
