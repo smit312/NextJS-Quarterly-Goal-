@@ -7,6 +7,8 @@ function HomePage() {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredFeedback = feedbackInputRef.current.value;
+    fetch(); //{email : "smit@gmail.com",text:"some feedback text"}
+    
   }
 
   return (
