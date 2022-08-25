@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import EventList from "../../components/events/event-list";
 import useSWR from "swr";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 function FilteredEventsPage(props) {
   const [loadedevents, setLoadedEvents] = useState();
@@ -26,14 +26,36 @@ function FilteredEventsPage(props) {
     }
   }, [data]);
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name="description" content={`A list of filtered events.`} />
+    </Head>
+  );
+
   if (!loadedevents) {
-    return <p className="center">Loading...</p>;
+    return (
+      <Fragment>
+        {pageHeadData}
+        <p className="center">Loading...</p>
+      </Fragment>
+    );
   }
   const filteredYear = filterData[0];
   const filteredMonth = filterData[1];
 
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
+
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events </title>
+      <meta
+        name="description"
+        content={`All events for ${numMonth}/${numYear}.`}
+      />
+    </Head>
+  );
 
   if (
     isNaN(numMonth) ||
@@ -44,7 +66,12 @@ function FilteredEventsPage(props) {
     numMonth > 12 ||
     error
   ) {
-    return <p>Invalid Filter, Please adjust your values!</p>;
+    return (
+      <Fragment>
+        {pageHeadData}
+        <p>Invalid Filter, Please adjust your values!</p>
+      </Fragment>
+    );
   }
 
   const filteredEvents = loadedevents.filter((event) => {
@@ -56,20 +83,19 @@ function FilteredEventsPage(props) {
   });
 
   if (!filteredEvents || filteredEvents.length === 0) {
-    return <p className="center">No events found for the chosen filter! </p>;
+    return (
+      <Fragment>
+        {pageHeadData}
+        <p className="center">No events found for the chosen filter! </p>
+      </Fragment>
+    );
   }
 
   return (
-    <div>
-      <Head>
-        <title>Filtered Events </title>
-        <meta
-          name="description"
-          content={`All events for ${numMonth}/${numYear}.`}
-        />
-      </Head>
+    <Fragment>
+      {pageHeadData}
       <EventList items={filteredEvents} />
-    </div>
+    </Fragment>
   );
 }
 
