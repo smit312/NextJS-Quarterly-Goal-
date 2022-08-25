@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import Head from "next/head";
 import EventList from "../../components/events/event-list";
 import EventSearch from "../../components/events/events-search";
 import { useRouter } from "next/router";
@@ -12,6 +13,13 @@ function AllEventsPage(props) {
   }
   return (
     <Fragment>
+      <Head>
+        <title>NextJs Events</title>
+        <meta
+          name="description"
+          content="Find a lot of great events that allow you to envolve..."
+        />
+      </Head>
       <EventSearch onSearch={findEventHandler} />
       <EventList items={events} />
     </Fragment>

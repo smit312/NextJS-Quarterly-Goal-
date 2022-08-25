@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 import EventList from "../../components/events/event-list";
-import { getFilteredEvents } from "../../helpers/api-util";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 
@@ -61,6 +61,13 @@ function FilteredEventsPage(props) {
 
   return (
     <div>
+      <Head>
+        <title>Filtered Events </title>
+        <meta
+          name="description"
+          content={`All events for ${numMonth}/${numYear}.`}
+        />
+      </Head>
       <EventList items={filteredEvents} />
     </div>
   );
