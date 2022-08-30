@@ -13,20 +13,20 @@ function handler(req, res) {
       return;
     }
     const newComment = {
-        id: new Date().toISOString(),
-        email,
-        name,
-        text,
+      id: new Date().toISOString(),
+      email,
+      name,
+      text,
     };
     console.log(newComment);
-    res.status(201).json({ message: "Added Comment.", comment = newComment });
+    res.status(201).json({ message: "Added Comment.", comment: newComment });
   }
   if (req.method === "GET") {
-        const DummyList =[
-            {id:'c1', name :'Smit', text :'First Commit'},
-            {id:'c2', name :'Smit',text:'Second Commit'}
-        ];
-        res.status(200).json({comments : DummyList})
+    const DummyList = [
+      { id: "c1", name: "Smit", text: "First Commit" },
+      { id: "c2", name: "Smit", text: "Second Commit" },
+    ];
+    res.status(200).json({ comments: DummyList });
   }
 }
 
