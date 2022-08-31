@@ -1,5 +1,11 @@
-function handler(req, res) {
+import { MongoClient } from "mongodb";
+async function handler(req, res) {
   const eventId = req.query.eventId;
+
+  const client = await MongoClient.connect(
+    "mongodb+srv://smit:smit@cluster0.y641vhb.mongodb.net/events?retryWrites=true&w=majority"
+  );
+
   if (req.method === "POST") {
     const { email, name, text } = req.body;
     if (
@@ -13,21 +19,28 @@ function handler(req, res) {
       return;
     }
     const newComment = {
-      id: new Date().toISOString(),
       email,
       name,
       text,
+      eventId,
     };
-    console.log(newComment);
+
+    const db = client.db();
+    const result = await db.collection("comments").insertOne(newComment);
+
+    newComment.id = result.insertedId;
     res.status(201).json({ message: "Added Comment.", comment: newComment });
   }
   if (req.method === "GET") {
-    const DummyList = [
-      { id: "c1", name: "Smit", text: "First Commit" },
-      { id: "c2", name: "Smit", text: "Second Commit" },
-    ];
-    res.status(200).json({ comments: DummyList });
+    const db = client.db();
+    const documents = await db
+      .collection("comments")
+      .find()
+      .sort({ _id: -1 })
+      .toArray();
+    res.status(200).json({ comments: documents });
   }
+  client.close();
 }
 
 export default handler;
