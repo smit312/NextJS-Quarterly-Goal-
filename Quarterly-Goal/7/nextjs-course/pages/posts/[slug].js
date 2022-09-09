@@ -1,2 +1,2 @@
 function PostDetailPage() {}
-export default PostDetailPage;
+export default PostDetailPage ;
