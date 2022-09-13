@@ -5,3 +5,7 @@ image : getting-started-nextjs.png
 excerpt : "nextJs is a the React framework for production - it makes building fullstack react apps and site a breeze and ships with built-in SSR."
 isFeatured : true
 ---
+
+# this is a title  
+
+this is some regular text with a [link](https://google.com)
