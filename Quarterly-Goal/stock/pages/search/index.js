@@ -43,7 +43,10 @@ export default function SearchStock() {
         <div className={styles.grid}>
           {bestMatches.map((stock) => (
             <>
-              <a href="https://nextjs.org/learn" className={styles.card}>
+              <a
+                href={`stockItem/${stock["1. symbol"]}`}
+                className={styles.card}
+              >
                 <h2>{stock["1. symbol"]} &rarr;</h2>
                 <p>{stock["2. name"]}</p>
               </a>
