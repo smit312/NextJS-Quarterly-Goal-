@@ -1,8 +1,12 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import styles from "../../styles/Home.module.css";
+import dynamic from "next/dynamic";
 let baseURL = "https://www.alphavantage.co";
-import ChartComponent from "../../components/ChartComponent";
+const ChartComponentAm = dynamic(
+  () => import("../../components/ChartComponentAm"),
+  {
+    ssr: false,
+  }
+);
+// import ChartComponentAm from "../../components/ChartComponentAm";
 export default function StockItem({ StockItem }) {
   console.log("hellooooooo", StockItem);
   const stockPrices = StockItem["Time Series (Daily)"];
@@ -15,14 +19,15 @@ export default function StockItem({ StockItem }) {
   let StockDetail = Object.entries(stockPrices)
     .map((item) => ({
       date: item[0],
-      itemPrices: item[1]["4. close"],
+      value: item[1]["4. close"],
     }))
-    .slice(0, 100);
+    .slice(0, 22);
   //   console.log("price", price);
   return (
     <>
       <h2>Hello</h2>
-      <ChartComponent stockData={StockDetail} />
+      <ChartComponentAm StockDetail={StockDetail} />
+      {/* <ChartComponent stockData={StockDetail} /> */}
     </>
   );
 }

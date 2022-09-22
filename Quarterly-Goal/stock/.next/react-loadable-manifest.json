@@ -1,1 +1,32 @@
-{}
+{
+  "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> ../../canvg/index.js": {
+    "id": "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> ../../canvg/index.js",
+    "files": [
+      "static/chunks/canvg.js"
+    ]
+  },
+  "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> ../../pdfmake/vfs_fonts": {
+    "id": "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> ../../pdfmake/vfs_fonts",
+    "files": [
+      "static/chunks/pdfmake.js"
+    ]
+  },
+  "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> pdfmake/build/pdfmake.js": {
+    "id": "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> pdfmake/build/pdfmake.js",
+    "files": [
+      "static/chunks/pdfmake.js"
+    ]
+  },
+  "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> xlsx/dist/xlsx.core.min.js": {
+    "id": "../node_modules/@amcharts/amcharts4/.internal/core/export/Export.js -> xlsx/dist/xlsx.core.min.js",
+    "files": [
+      "static/chunks/xlsx.js"
+    ]
+  },
+  "stockItem/[slug].js -> ../../components/ChartComponentAm": {
+    "id": "stockItem/[slug].js -> ../../components/ChartComponentAm",
+    "files": [
+      "static/chunks/components_ChartComponentAm_js.js"
+    ]
+  }
+}
