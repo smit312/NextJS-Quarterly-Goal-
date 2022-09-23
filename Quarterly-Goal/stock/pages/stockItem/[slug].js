@@ -1,18 +1,23 @@
 import dynamic from "next/dynamic";
 let baseURL = "https://www.alphavantage.co";
+import styles from "../../styles/Home.module.css";
+
 const ChartComponentAm = dynamic(
   () => import("../../components/ChartComponentAm"),
   {
     ssr: false,
   }
 );
-// import ChartComponentAm from "../../components/ChartComponentAm";
 export default function StockItem({ StockItem }) {
   console.log("hellooooooo", StockItem);
+  console.log("symobo;", StockItem["Meta Data"]);
+  const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
+  const LastUpdated = StockItem["Meta Data"]["3. Last Refreshed"];
+
   const stockPrices = StockItem["Time Series (Daily)"];
   let stockDates = Object.entries(stockPrices)
     .map((entry) => entry[0])
-    .slice(0, 100)
+    .slice(0, 10)
     .reverse();
   console.log("Stock Price", stockPrices);
   console.log("stockDate", stockDates);
@@ -24,11 +29,25 @@ export default function StockItem({ StockItem }) {
     .slice(0, 22);
   //   console.log("price", price);
   return (
-    <>
-      <h2>Hello</h2>
+    <div className={styles.container}>
+      <div className={styles.stocksymbl}>{StockSymbol}</div>
       <ChartComponentAm StockDetail={StockDetail} />
-      {/* <ChartComponent stockData={StockDetail} /> */}
-    </>
+      <div className={styles.stockinfocards}>
+        <div className={styles.stockinfocard}>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+        </div>
+        <div className={styles.stockinfocard}>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+          <p>LastUpdatedDate : {LastUpdated}</p>
+          <p className={styles.LastUpdated}>LastUpdatedDate : {LastUpdated}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

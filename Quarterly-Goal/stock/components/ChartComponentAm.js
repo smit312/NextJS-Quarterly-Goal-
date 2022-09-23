@@ -1,9 +1,10 @@
 import React, { useLayoutEffect } from "react";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
+import styles from "../styles/Home.module.css";
 
 const ChartComponentAm = ({ StockDetail }) => {
-  console.log("from Am chart", StockDetail[0]["date"]);
+  console.log("from Am chart", StockDetail);
   useLayoutEffect(() => {
     var chart = am4core.create("chartdiv", am4charts.XYChart);
 
