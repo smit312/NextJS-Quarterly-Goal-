@@ -16,6 +16,7 @@ export default function StockItem({ StockItem, StockOverview }) {
   console.log("Company overview", StockOverview);
   console.log("stockItem", StockItem);
   const [duration, setDuration] = useState(21);
+  const [isLineChart, setIsLineChart] = useState(true);
   const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
   const LastUpdated = StockItem["Meta Data"]["3. Last Refreshed"];
   function DurationHandler(num) {
@@ -40,17 +41,26 @@ export default function StockItem({ StockItem, StockOverview }) {
   let RecentStockinfo = Object.entries(stockPrices)
     .map((item) => ({ value: item[1] }))
     .slice(0, 1);
-  console.log("RecentStockinfo", RecentStockinfo[0]["value"]);
-  // let CandleChartData =
-  //   console.log("price", price);
   var myNumeral = numeral(StockOverview["MarketCapitalization"]);
   var MarketCap = myNumeral.format("$ 0.00 a");
+
+  function ChartHandler() {
+    setIsLineChart(!isLineChart);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.stocksymbl}>{StockSymbol}</div>
-      <ChartComponentAm StockDetail={StockDetail} />
+      <button onClick={ChartHandler}>
+        {isLineChart ? "switch to candle" : "switch to line chart"}
+      </button>
+      {isLineChart ? (
+        <ChartComponentAm StockDetail={StockDetail} />
+      ) : (
+        <CandleChart StockItem={StockItem} duration={duration} />
+      )}
+      {/* <ChartComponentAm StockDetail={StockDetail} />
 
-      <CandleChart StockItem={StockItem} duration={duration} />
+      <CandleChart StockItem={StockItem} duration={duration} /> */}
       <div className={styles.buttons_div}>
         <button
           className={
