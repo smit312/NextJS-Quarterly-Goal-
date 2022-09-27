@@ -2,6 +2,9 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 let baseURL = "https://www.alphavantage.co";
 import styles from "../../styles/Home.module.css";
+const CandleChart = dynamic(() => import("../../components/CandleChart"), {
+  ssr: false,
+});
 const ChartComponentAm = dynamic(
   () => import("../../components/ChartComponentAm"),
   {
@@ -13,7 +16,6 @@ export default function StockItem({ StockItem, StockOverview }) {
   console.log("Company overview", StockOverview);
   console.log("stockItem", StockItem);
   const [duration, setDuration] = useState(21);
-  // console.log("symobo;", StockItem["Meta Data"]);
   const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
   const LastUpdated = StockItem["Meta Data"]["3. Last Refreshed"];
   function DurationHandler(num) {
@@ -39,6 +41,7 @@ export default function StockItem({ StockItem, StockOverview }) {
     .map((item) => ({ value: item[1] }))
     .slice(0, 1);
   console.log("RecentStockinfo", RecentStockinfo[0]["value"]);
+  // let CandleChartData =
   //   console.log("price", price);
   var myNumeral = numeral(StockOverview["MarketCapitalization"]);
   var MarketCap = myNumeral.format("$ 0.00 a");
@@ -46,6 +49,8 @@ export default function StockItem({ StockItem, StockOverview }) {
     <div className={styles.container}>
       <div className={styles.stocksymbl}>{StockSymbol}</div>
       <ChartComponentAm StockDetail={StockDetail} />
+
+      <CandleChart StockItem={StockItem} duration={duration} />
       <div className={styles.buttons_div}>
         <button
           className={

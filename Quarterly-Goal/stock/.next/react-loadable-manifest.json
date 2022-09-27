@@ -23,6 +23,12 @@
       "static/chunks/xlsx.js"
     ]
   },
+  "stockItem/[slug].js -> ../../components/CandleChart": {
+    "id": "stockItem/[slug].js -> ../../components/CandleChart",
+    "files": [
+      "static/chunks/components_CandleChart_js.js"
+    ]
+  },
   "stockItem/[slug].js -> ../../components/ChartComponentAm": {
     "id": "stockItem/[slug].js -> ../../components/ChartComponentAm",
     "files": [
