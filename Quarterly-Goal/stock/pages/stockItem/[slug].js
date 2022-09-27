@@ -13,25 +13,19 @@ const ChartComponentAm = dynamic(
 );
 var numeral = require("numeral");
 export default function StockItem({ StockItem, StockOverview }) {
-  console.log("Company overview", StockOverview);
-  console.log("stockItem", StockItem);
+ 
   const [duration, setDuration] = useState(21);
   const [isLineChart, setIsLineChart] = useState(true);
   const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
   const LastUpdated = StockItem["Meta Data"]["3. Last Refreshed"];
   function DurationHandler(num) {
     setDuration(num || 0);
-    console.log("duration is", num);
   }
   const stockPrices = StockItem["Time Series (Daily)"];
   let stockDates = Object.entries(stockPrices)
     .map((entry) => entry[0])
     .slice(0, duration)
     .reverse();
-  console.log("Stock Price", stockPrices);
-  console.log("hellooooooo", StockItem["Time Series (Daily)"]["stockDates"]);
-
-  console.log("stockDate", stockDates);
   let StockDetail = Object.entries(stockPrices)
     .map((item) => ({
       date: item[0],

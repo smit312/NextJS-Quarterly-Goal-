@@ -4,7 +4,6 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import styles from "../styles/Home.module.css";
 
 const ChartComponentAm = ({ StockDetail }) => {
-  console.log("from Am chart", StockDetail);
   useLayoutEffect(() => {
     var chart = am4core.create("chartdiv", am4charts.XYChart);
 

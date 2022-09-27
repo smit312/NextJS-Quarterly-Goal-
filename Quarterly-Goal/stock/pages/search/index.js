@@ -39,7 +39,6 @@ export default function SearchStock() {
             <button className={styles.button}>Submit</button>
           </div>
         </form>
-        {console.log("best matches", bestMatches)}
         <div className={styles.grid}>
           {bestMatches.map((stock) => (
             <>
