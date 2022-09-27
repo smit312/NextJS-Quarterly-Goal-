@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { FcComboChart } from "react-icons/fc";
+import { TbChartCandle } from "react-icons/tb";
 
 let baseURL = "https://www.alphavantage.co";
 import styles from "../../styles/Home.module.css";
@@ -45,9 +47,6 @@ export default function StockItem({ StockItem, StockOverview }) {
     <div className={styles.container}>
       <div className={styles.stocksymbl}>{StockSymbol}</div>
 
-      <button onClick={ChartHandler} className={styles.Chartbtn}>
-        {isLineChart ? "switch to candle chart" : "switch to line chart"}
-      </button>
       {isLineChart ? (
         <ChartComponentAm StockDetail={StockDetail} />
       ) : (
@@ -88,6 +87,14 @@ export default function StockItem({ StockItem, StockOverview }) {
           onClick={() => DurationHandler(252)}
         >
           12 months
+        </button>
+        <button onClick={ChartHandler} className={styles.Chartbtn}>
+          {/* {isLineChart ? "switch to candle chart" : "switch to line chart"} */}
+          {isLineChart ? (
+            <TbChartCandle title="switch to linechart" />
+          ) : (
+            <FcComboChart title="switch to candlechart" />
+          )}
         </button>
       </div>
       <div className={styles.stockinfocards}>
