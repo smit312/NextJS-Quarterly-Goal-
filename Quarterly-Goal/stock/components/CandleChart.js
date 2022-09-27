@@ -3,7 +3,6 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 
 const CandleChart = ({ StockItem, duration }) => {
-  console.log("from candlechart", StockItem);
   const data = Object.entries(StockItem["Time Series (Daily)"])
     .map((entry) => ({
       date: entry[0],
@@ -19,11 +18,6 @@ const CandleChart = ({ StockItem, duration }) => {
     var chart = am4core.create("candlechart", am4charts.XYChart);
 
     chart.padding(0, 15, 0, 15);
-
-    // Load data
-    console.log("hi", data);
-    // chart.dataSource.url =
-    //   "https://www.amcharts.com/wp-content/uploads/assets/stock/MSFT.csv";
     chart.data = data;
     chart.dataSource.parser = new am4core.CSVParser();
     chart.dataSource.parser.options.useColumnNames = true;

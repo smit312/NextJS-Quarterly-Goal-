@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
+
 let baseURL = "https://www.alphavantage.co";
 import styles from "../../styles/Home.module.css";
 const CandleChart = dynamic(() => import("../../components/CandleChart"), {
@@ -13,25 +14,18 @@ const ChartComponentAm = dynamic(
 );
 var numeral = require("numeral");
 export default function StockItem({ StockItem, StockOverview }) {
-  console.log("Company overview", StockOverview);
-  console.log("stockItem", StockItem);
   const [duration, setDuration] = useState(21);
   const [isLineChart, setIsLineChart] = useState(true);
   const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
   const LastUpdated = StockItem["Meta Data"]["3. Last Refreshed"];
   function DurationHandler(num) {
     setDuration(num || 0);
-    console.log("duration is", num);
   }
   const stockPrices = StockItem["Time Series (Daily)"];
   let stockDates = Object.entries(stockPrices)
     .map((entry) => entry[0])
     .slice(0, duration)
     .reverse();
-  console.log("Stock Price", stockPrices);
-  console.log("hellooooooo", StockItem["Time Series (Daily)"]["stockDates"]);
-
-  console.log("stockDate", stockDates);
   let StockDetail = Object.entries(stockPrices)
     .map((item) => ({
       date: item[0],
@@ -50,8 +44,9 @@ export default function StockItem({ StockItem, StockOverview }) {
   return (
     <div className={styles.container}>
       <div className={styles.stocksymbl}>{StockSymbol}</div>
-      <button onClick={ChartHandler}>
-        {isLineChart ? "switch to candle" : "switch to line chart"}
+
+      <button onClick={ChartHandler} className={styles.Chartbtn}>
+        {isLineChart ? "switch to candle chart" : "switch to line chart"}
       </button>
       {isLineChart ? (
         <ChartComponentAm StockDetail={StockDetail} />
