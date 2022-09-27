@@ -14,7 +14,7 @@ export default function SearchStock() {
       `${baseURL}/query?function=SYMBOL_SEARCH&keywords=${stock_name}&apikey=HTKVDQLH7OJN894F`
     );
     const StockData = await res.json();
-    setBestMatches(StockData.bestMatches);
+    setBestMatches(StockData["bestMatches"]);
   }
 
   return (

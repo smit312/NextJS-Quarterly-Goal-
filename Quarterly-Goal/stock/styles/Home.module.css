@@ -130,13 +130,36 @@ background-color: #FFFFFF;
 }
 .stockinfocards{
   display: flex;
-  width: 60%;
+  width: 45%;
   margin: 0 auto;
   justify-content: space-between;
 }
-.stockinfocard{
-
+.buttons_div{
+  justify-content: space-evenly;
+  display: flex;
+  width: 29%;
+  margin: 10px auto;
 }
+.time_button{
+
+    font-size: 1.2rem;
+    background: white;
+    border: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+.time_active_button{
+  /* background-color: #F5F5F5; */
+  font-size: 1.2rem;background: white;
+  border: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
 
 @media (max-width: 600px) {
   .grid {
