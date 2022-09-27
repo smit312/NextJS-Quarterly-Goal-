@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
+
 let baseURL = "https://www.alphavantage.co";
 import styles from "../../styles/Home.module.css";
 const CandleChart = dynamic(() => import("../../components/CandleChart"), {
@@ -13,7 +14,6 @@ const ChartComponentAm = dynamic(
 );
 var numeral = require("numeral");
 export default function StockItem({ StockItem, StockOverview }) {
- 
   const [duration, setDuration] = useState(21);
   const [isLineChart, setIsLineChart] = useState(true);
   const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
@@ -44,8 +44,9 @@ export default function StockItem({ StockItem, StockOverview }) {
   return (
     <div className={styles.container}>
       <div className={styles.stocksymbl}>{StockSymbol}</div>
-      <button onClick={ChartHandler}>
-        {isLineChart ? "switch to candle" : "switch to line chart"}
+
+      <button onClick={ChartHandler} className={styles.Chartbtn}>
+        {isLineChart ? "switch to candle chart" : "switch to line chart"}
       </button>
       {isLineChart ? (
         <ChartComponentAm StockDetail={StockDetail} />
