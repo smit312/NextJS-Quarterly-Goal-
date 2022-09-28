@@ -16,7 +16,7 @@ const ChartComponentAm = dynamic(
 );
 var numeral = require("numeral");
 export default function StockItem({ StockItem, StockOverview }) {
-  const [duration, setDuration] = useState(21);
+  const [duration, setDuration] = useState(22);
   const [isLineChart, setIsLineChart] = useState(true);
   const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
   const LastUpdated = StockItem["Meta Data"]["3. Last Refreshed"];
@@ -43,9 +43,33 @@ export default function StockItem({ StockItem, StockOverview }) {
   function ChartHandler() {
     setIsLineChart(!isLineChart);
   }
+  //time period
+  let TimePeriod =
+    StockDetail[0].value - StockDetail[StockDetail.length - 1].value;
+  let TimePeriodStyle = TimePeriod > 0 ? styles.geenGain : styles.redGain;
+  let percentageCount =
+    (Number(StockDetail[0].value) /
+      Number(StockDetail[StockDetail.length - 1].value)) *
+      100 -
+    100;
+  console.log("percentageCount", percentageCount);
   return (
     <div className={styles.container}>
       <div className={styles.stocksymbl}>{StockSymbol}</div>
+      <p style={{ textAlign: "center" }}>
+        {RecentStockinfo[0]["value"]["4. close"]}
+      </p>
+      <div className={styles.timeperiod}> Last {duration} days</div>
+      <div className={styles.percentageCount}>
+        <span className={TimePeriodStyle}>
+          {percentageCount.toFixed(3)}%
+          {TimePeriod > 0 ? (
+            <>(+{TimePeriod.toFixed(3)})</>
+          ) : (
+            <>({TimePeriod.toFixed(3)})</>
+          )}
+        </span>
+      </div>
 
       {isLineChart ? (
         <ChartComponentAm StockDetail={StockDetail} />
@@ -66,25 +90,25 @@ export default function StockItem({ StockItem, StockOverview }) {
         </button>
         <button
           className={
-            duration == "21" ? styles.time_active_button : styles.time_button
+            duration == "22" ? styles.time_active_button : styles.time_button
           }
-          onClick={() => DurationHandler(21)}
+          onClick={() => DurationHandler(22)}
         >
           1 month
         </button>
         <button
           className={
-            duration == "126" ? styles.time_active_button : styles.time_button
+            duration == "132" ? styles.time_active_button : styles.time_button
           }
-          onClick={() => DurationHandler(126)}
+          onClick={() => DurationHandler(132)}
         >
           6 month
         </button>
         <button
           className={
-            duration == "252" ? styles.time_active_button : styles.time_button
+            duration == "264" ? styles.time_active_button : styles.time_button
           }
-          onClick={() => DurationHandler(252)}
+          onClick={() => DurationHandler(264)}
         >
           12 months
         </button>
