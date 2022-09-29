@@ -2,19 +2,27 @@ import Head from "next/head";
 import { useState } from "react";
 import Image from "next/image";
 import styles from "../../styles/Home.module.css";
-let baseURL = "https://www.alphavantage.co";
-
+// let baseURL = "https://www.alphavantage.co";
+import apihandler from "../apihandler";
 export default function SearchStock() {
   const [bestMatches, setBestMatches] = useState([]);
-
   async function SubmitHandler(e) {
     e.preventDefault();
     var stock_name = e.target.stock_name.value;
-    const res = await fetch(
-      `${baseURL}/query?function=SYMBOL_SEARCH&keywords=${stock_name}&apikey=HTKVDQLH7OJN894F`
+    // const res = await fetch(
+    //   `${baseURL}/query?function=SYMBOL_SEARCH&keywords=${stock_name}&apikey=HTKVDQLH7OJN894F`
+    // );
+    // const StockData = await res.json();
+
+    const StockData = await apihandler(
+      "SYMBOL_SEARCH",
+      "keywords=" + stock_name
     );
-    const StockData = await res.json();
-    setBestMatches(StockData["bestMatches"]);
+    if (StockData.error) {
+      alert(StockData.error);
+    } else {
+      setBestMatches(StockData["bestMatches"]);
+    }
   }
 
   return (
@@ -40,7 +48,7 @@ export default function SearchStock() {
           </div>
         </form>
         <div className={styles.grid}>
-          {bestMatches.map((stock) => (
+          {bestMatches?.map((stock) => (
             <>
               <a
                 href={`stockItem/${stock["1. symbol"]}`}
