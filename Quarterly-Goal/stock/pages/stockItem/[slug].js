@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { FcComboChart } from "react-icons/fc";
 import { TbChartCandle } from "react-icons/tb";
-import apihandler from "../apihandler";
+import apihandler from "../../components/apihandler";
 // let baseURL = "https://www.alphavantage.co";
 import styles from "../../styles/Home.module.css";
 const CandleChart = dynamic(() => import("../../components/CandleChart"), {
