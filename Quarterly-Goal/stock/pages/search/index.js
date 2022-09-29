@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "../../styles/Home.module.css";
 // let baseURL = "https://www.alphavantage.co";
-import apihandler from "../apihandler";
+import apihandler from "../../components/apihandler";
 export default function SearchStock() {
   const [bestMatches, setBestMatches] = useState([]);
   async function SubmitHandler(e) {
