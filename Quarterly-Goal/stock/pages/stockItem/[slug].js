@@ -2,8 +2,8 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { FcComboChart } from "react-icons/fc";
 import { TbChartCandle } from "react-icons/tb";
-
-let baseURL = "https://www.alphavantage.co";
+import apihandler from "../apihandler";
+// let baseURL = "https://www.alphavantage.co";
 import styles from "../../styles/Home.module.css";
 const CandleChart = dynamic(() => import("../../components/CandleChart"), {
   ssr: false,
@@ -18,6 +18,7 @@ var numeral = require("numeral");
 export default function StockItem({ StockItem, StockOverview }) {
   const [duration, setDuration] = useState(22);
   const [isLineChart, setIsLineChart] = useState(true);
+  console.log("stockitem", StockItem);
   const StockSymbol = StockItem["Meta Data"]["2. Symbol"];
   const LastUpdated = StockItem["Meta Data"]["3. Last Refreshed"];
   function DurationHandler(num) {
@@ -150,14 +151,19 @@ export default function StockItem({ StockItem, StockOverview }) {
 
 export async function getServerSideProps({ params }) {
   const StockSymbol = params.slug;
-  const res = await fetch(
-    `${baseURL}/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&outputsize=full&&limit=1000&apikey=HTKVDQLH7OJN894F`
+  // const res = await fetch(
+  //   `${baseURL}/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&outputsize=full&&limit=1000&apikey=HTKVDQLH7OJN894F`
+  // );
+  // const StockItem = await res.json();
+  const StockItem = await apihandler(
+    "TIME_SERIES_DAILY",
+    "symbol=" + StockSymbol
   );
-  const StockItem = await res.json();
-  const CompanyOverview = await fetch(
-    `${baseURL}/query?function=OVERVIEW&symbol=${StockSymbol}&apikey==HTKVDQLH7OJN894F`
-  );
-  const StockOverview = await CompanyOverview.json();
+  // const CompanyOverview = await fetch(
+  //   `${baseURL}/query?function=OVERVIEW&symbol=${StockSymbol}&apikey==HTKVDQLH7OJN894F`
+  // );
+  // const StockOverview = await CompanyOverview.json();
+  const StockOverview = await apihandler("OVERVIEW", "symbol=" + StockSymbol);
 
   return {
     props: {
