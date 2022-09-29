@@ -13,8 +13,16 @@ export default function SearchStock() {
     //   `${baseURL}/query?function=SYMBOL_SEARCH&keywords=${stock_name}&apikey=HTKVDQLH7OJN894F`
     // );
     // const StockData = await res.json();
-    const StockData = await apihandler("SYMBOL_SEARCH", "keywords="+stock_name);
-    setBestMatches(StockData["bestMatches"]);
+
+    const StockData = await apihandler(
+      "SYMBOL_SEARCH",
+      "keywords=" + stock_name
+    );
+    if (StockData.error) {
+      alert(StockData.error);
+    } else {
+      setBestMatches(StockData["bestMatches"]);
+    }
   }
 
   return (
